@@ -7,6 +7,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthenticateController extends Controller
 {
@@ -32,11 +33,12 @@ class AuthenticateController extends Controller
                 'msg' => 'Email or password is incorrect'
             ]);
         }
-
-
+        $user = Auth::user();
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'message' => 'User login successfully',
+            'token' => $token
         ], 201);
     }
 }

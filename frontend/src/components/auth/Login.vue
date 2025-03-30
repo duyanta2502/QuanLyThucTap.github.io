@@ -23,6 +23,7 @@
                                         <input type="password" v-model = "formData.password" class="form-control" name="password"
                                             placeholder="Nhập mật khẩu">
                                             <span v-if ="errors.password" class = "msg-error">{{ errors.password[0] }} </span>
+                                            <br>
                                         <a href="#">
                                             <router-link to ="/fogot-password">
                                                 Quên mật khẩu
@@ -63,7 +64,11 @@ export default{
 
         const handleSubmit = async () => {
             try {
-                const respon = await axios.post('api/authenticate', formData);
+                const respon = await axios.post('api/login', formData);
+                console.log(respon);
+                //luu token vao localStorage
+                localStorage.setItem('token', respon.data.token);
+
                 router.push('/admin/dashboard');
             } catch (error) {
                 console.log(error);

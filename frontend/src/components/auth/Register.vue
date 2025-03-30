@@ -73,6 +73,7 @@
             const handleSubmit = async () => {
                 try {
                     const respon = await axios.post('api/register', formData);
+                    alert('Đăng ký thành công!');
                     router.push('/login');
                 } catch (error) {
                     if (error.response && error.response.status == 422) {
