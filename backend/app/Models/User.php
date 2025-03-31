@@ -17,6 +17,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    // Trong App\Models\User.php
     protected $fillable = [
         'name',
         'email',

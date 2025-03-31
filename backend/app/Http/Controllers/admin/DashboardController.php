@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 class DashboardController extends Controller
@@ -13,6 +14,10 @@ class DashboardController extends Controller
     public function countUser()
     {
         return User::count();
+    }
+    public function getNameUser(){
+        $user = Auth::user();
+        return $user->name;
     }
 
     /**
