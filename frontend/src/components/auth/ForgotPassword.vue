@@ -9,35 +9,22 @@
                         </div>
                         <div class="card-body">
                             <!-- Form đăng nhập -->
-                            <form @submit.prevent = "handleSubmit">
+                            <form @submit.prevent = "ForgotPassword">
                                 <span v-if ="message" class = "msg-error">{{ message }}</span>
                                 <div class="mb-3">
                                    <label class="form-label">Email</label>
                                         <input type="email" v-model = "formData.email" class="form-control" name="email" 
                                             placeholder="Nhập email">
                                             <span v-if ="errors.email" class = "msg-error">{{ errors.email[0] }} </span>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label class="form-label">Mật khẩu</label>
-                                        <input type="password" v-model = "formData.password" class="form-control" name="password"
-                                            placeholder="Nhập mật khẩu">
-                                            <span v-if ="errors.password" class = "msg-error">{{ errors.password[0] }} </span>
-                                            <br>
-                                        <a href="#">
-                                            <router-link to ="/forgot-password">
-                                                Quên mật khẩu
-                                            </router-link>
-                                        </a>
                                     </div>         
-                                    <button type="submit" class="btn btn-primary w-100">Đăng Nhập</button>
-                                    <p class="text-center mt-3">Chưa có tài khoản? 
+                                    <button type="submit" class="btn btn-primary w-100">Email link</button>
+                                    <br>
+                                    <br>
                                         <a href="#">
-                                            <router-link to ="/register">
-                                                Đăng Ký
+                                            <router-link to ="/login">
+                                                Back to Login
                                             </router-link>
                                         </a>
-                                    </p>
                             </form>
                         </div>
                     </div>
@@ -55,21 +42,18 @@ export default{
     setup(){
         const formData = reactive({
             'email': '',
-            'password': '',
         });
 
         const errors = reactive({});
         const router = useRouter();
         const message = ref('');
 
-        const handleSubmit = async () => {
+        const ForgotPassword = async () => {
             try {
-                const respon = await axios.post('api/login', formData);
+                const respon = await axios.post('api/forgot-password', formData);
                 console.log(respon);
-                //luu token vao localStorage
-                localStorage.setItem('token', respon.data.token);
+                alert('Đã gửi email khôi phục mật khẩu đến email của bạn!');
 
-                router.push('/admin/dashboard');
             } catch (error) {
                 console.log(error);
                 if (error.response && error.response.status == 422) {
@@ -85,7 +69,7 @@ export default{
             formData,
             errors,
             message,
-            handleSubmit
+            ForgotPassword
         }
     }
 }

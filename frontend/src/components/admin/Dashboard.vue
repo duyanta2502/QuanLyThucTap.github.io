@@ -1,7 +1,28 @@
 <template>
     <div class="container mt-5">
-        <h1 class="mt-4">Quản lý Sinh viên</h1>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="#">Quản lý Sinh viên</a>
+            <div class="d-flex ms-auto">
+                <!-- User name display -->
+                <span class="navbar-text mx-3">
+                Xin chào, <h1>{{ userName }}</h1>
+                </span>
 
+                <button class="btn btn-danger" @click="logout">
+                Logout
+                </button>
+            </div>
+            </div>
+        </nav>
+
+        <h3 class="mt-2">User</h3> 
+        <h1>
+            {{ countStudents }}
+        </h1>
+
+        
         <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addStudentModal">Thêm Sinh viên</button>
 
         <!-- Modal Thêm mới / Cập nhật sinh viên -->
@@ -101,13 +122,78 @@
 </template>
 
 <script>
-    import { ref } from 'vue';
+    import { 
+        ref, 
+        onMounted 
+    } from 'vue';
+    import axios from 'axios';
+    import { useRouter } from 'vue-router';
     export  default {
         setup(){
+            const router = useRouter();
+            const token = localStorage.getItem('token');
             const countStudents = ref(0);
+            const userName = ref('User');
+
+            // lấy tên người dùng 
+            // BUG - api chay duoc, trả về tên, nhưng frontend k render được
+            const getUserName = async () => {
+                await axios.get('/api/user/name', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                    .then(response => {
+                        console.log(response.data.name); 
+                        userName.value = response.data.name; 
+                    })
+                    .catch (error => {
+                        console.error("API error: ", error); 
+                    })
+                }
+
+            // lấy số lượng sinh viên
+            const fetchStudentsCount = async() => {
+                await axios.get('/api/count-user',{
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    },
+                })
+                    .then(response => {
+                        countStudents.value = response.data;
+                    })
+                    .catch(error => {
+                        console.error("api error: ", error);
+                    })
+            }
+
+            //  đăng xuất
+            const logout = async() => {
+                await axios.get('/api/logout',{
+                        headers:{
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
+                    .then(response => { 
+                        localStorage.removeItem('token');
+                        router.push('/login');
+                    })
+                    .catch(error => {
+                        console.error("api error: ", error);
+                    })
+            }
+            
+            onMounted(() => {
+                fetchStudentsCount(); 
+                getUserName();
+            });
+
             return {
-                countStudents
+                countStudents,
+                userName,
+                logout,
             }
         }
     }
 </script>
+
