@@ -69,6 +69,7 @@ class SinhVienController extends Controller
             'Lop' => 'required|string|max:50',
             'Email' => 'required|email|unique:sinhvien,Email,' . $id . ',id|max:100',
             'SoDienThoai' => 'nullable|string|max:15',
+            'TrangThai' => 'required|boolean',
         ]);
 
         $sinhvien = Sinhvien::find($id);
@@ -77,7 +78,15 @@ class SinhVienController extends Controller
             return response()->json(['message' => 'Sinh viên không tồn tại'], 404);
         }
 
-        $sinhvien->update($validated);
+        $sinhvien->update([
+            'HoTen' => $validated['HoTen'],
+            'MaSinhVien' => $validated['MaSinhVien'],
+            'NgaySinh' => $validated['NgaySinh'],
+            'Lop' => $validated['Lop'],
+            'Email' => $validated['Email'],
+            'SoDienThoai' => $validated['SoDienThoai'],
+            'TrangThai' => $validated['TrangThai'], 
+        ]);
 
         return response()->json(["message" => "Cập nhật thành công", "sinhvien" => $sinhvien], 200);
     }

@@ -4,7 +4,9 @@ import Login from '../components/auth/Login.vue'
 import Dashboard from '../components/admin/Dashboard.vue'
 import ForgotPassword from '../components/auth/ForgotPassword.vue'
 import ResetPassword from '../components/auth/ResetPassword.vue';
-
+import Profile from '../components/user/Profile.vue';
+import userIndex from '../components/user/indexUser.vue';
+import indexLecturer from '../components/user/indexLecturer.vue'
 const routes = [
     {  
         path: '/register', 
@@ -30,6 +32,21 @@ const routes = [
         path: '/reset-password/:token',
         name: 'ResetPassword', 
         component: ResetPassword
+    },
+    {
+        path: '/admin/edit-profile',
+        name: 'Profile', 
+        component: Profile
+    }, 
+    {
+        path:'/admin/user',
+        name:'userIndex',
+        component: userIndex,
+    },
+    {
+        path:'/admin/lecturer',
+        name:'indexLecturer',   
+        component: indexLecturer,
     },
 ];
 

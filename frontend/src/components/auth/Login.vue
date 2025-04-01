@@ -51,6 +51,8 @@
 import { reactive, ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '../../../stores/authStore';
+
 export default{
     setup(){
         const formData = reactive({
@@ -61,13 +63,14 @@ export default{
         const errors = reactive({});
         const router = useRouter();
         const message = ref('');
-
+        const authStore = useAuthStore();
         const handleSubmit = async () => {
             try {
                 const respon = await axios.post('api/login', formData);
-                console.log(respon);
+                //console.log(respon);
                 //luu token vao localStorage
                 localStorage.setItem('token', respon.data.token);
+                authStore.login();
 
                 router.push('/admin/dashboard');
             } catch (error) {

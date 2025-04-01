@@ -17,6 +17,7 @@ public function up()
         $table->string('Email', 100)->unique();
         $table->string('SoDienThoai', 15)->nullable();
         $table->timestamps();
+        $table->boolean('Trang thai')->default(0); // Trạng thái sinh viên
     });
 }
 
