@@ -8,46 +8,14 @@ import Profile from '../components/user/Profile.vue';
 import userIndex from '../components/user/indexUser.vue';
 import indexLecturer from '../components/user/indexLecturer.vue'
 const routes = [
-    {  
-        path: '/register', 
-        name: 'Register',
-        component: Register
-    },
-    {
-        path: '/login', 
-        name: 'Login',
-        component: Login
-    },
-    {
-        path: '/admin/dashboard', 
-        name: 'Dashboard',
-        component: Dashboard
-    },
-    {
-        path: '/forgot-password',
-        name: 'ForgotPassword', 
-        component: ForgotPassword
-    },
-    {
-        path: '/reset-password/:token',
-        name: 'ResetPassword', 
-        component: ResetPassword
-    },
-    {
-        path: '/admin/edit-profile',
-        name: 'Profile', 
-        component: Profile
-    }, 
-    {
-        path:'/admin/user',
-        name:'userIndex',
-        component: userIndex,
-    },
-    {
-        path:'/admin/lecturer',
-        name:'indexLecturer',   
-        component: indexLecturer,
-    },
+    {   path: '/register', name: 'Register',component: Register  },
+    {   path: '/login', name: 'Login',component: Login  },
+    {   path: '/admin/dashboard', name: 'Dashboard',component: Dashboard    },
+    {   path: '/forgot-password',name: 'ForgotPassword', component: ForgotPassword  },
+    {   path: '/reset-password/:token',name: 'ResetPassword', component: ResetPassword  },
+    {   path: '/admin/edit-profile',name: 'Profile', component: Profile }, 
+    {   path:'/admin/user',name:'userIndex',component: userIndex,   },
+    {   path:'/admin/lecturer',name:'indexLecturer',   component: indexLecturer,    },
 ];
 
 const router = createRouter({
