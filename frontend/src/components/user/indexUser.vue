@@ -61,7 +61,16 @@
                 </tbody>
             </table>
             <p v-if="message" class="alert alert-danger">{{ message }}</p>
-    </div>
+
+            <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-outline-success" @click="exportExcel">
+                📤 Xuất file Excel
+            </button>
+            </div>
+
+
+            <p v-if="message" class="alert alert-danger">{{ message }}</p>
+            </div>
 </template>
 
 <script>
@@ -101,7 +110,10 @@
                 }
             };
 
-
+            const exportExcel = () => {
+                window.open('http://localhost:8000/api/export-sinhvien', '_blank')
+            }
+            
             const fetchSinhViens = async () => {
                 try {
                     const response = await api.get('/api/sinhvien');
@@ -143,6 +155,7 @@
                 deleteStudent,
                 editUser,
                 changeTrangThai,
+                exportExcel
             };
         }
     };

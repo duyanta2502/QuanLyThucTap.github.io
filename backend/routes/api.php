@@ -20,7 +20,7 @@ Route::apiResource( 'forgot-password', ForgotPasswordController::class);
 Route::apiResource( 'reset-password', ResetPasswordController::class);
 
 
-Route::get('/giangvien', [GiangVienController::class, 'index']);
+    Route::get('/giangvien', [GiangVienController::class, 'index']);
     Route::post('/giangvien', [GiangVienController::class, 'store']);
     Route::post('/giangviens', [GiangVienController::class, 'storeMany']);
     Route::get('/giangvien/{id}', [GiangVienController::class, 'show']);
@@ -33,15 +33,18 @@ Route::get('/giangvien', [GiangVienController::class, 'index']);
     Route::get('/sinhvien/{id}', [SinhVienController::class, 'show']);
     Route::put('/sinhvien/{id}', [SinhVienController::class, 'update']);
     Route::delete('/sinhvien/{id}', [SinhVienController::class, 'destroy']);
+    Route::post('/import-sinhvien', [SinhVienController::class, 'import_sinhvien']);
+    Route::get('/export-sinhvien', [SinhVienController::class, 'export_sinhvien']);
+
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    
+
 
     Route::get('count-user', [DashboardController::class, 'countUser']);
     Route::get('logout', [AuthenticateController::class, 'logout']);
     Route::get('get-account-info', [AdminController::class, 'getAccoutInfo']);
     Route::post('edit-profile', [AdminController::class, 'editProfile']);
-    
-    
+
+
 
 });

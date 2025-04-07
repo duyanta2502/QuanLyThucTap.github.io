@@ -48,10 +48,30 @@
                 <input v-model="sinhvien.SoDienThoai" type="text" class="form-control" />
             </div>
 
-            <div class="d-flex justify-content-end gap-2">
+            <div class="d-flex justify-content-between align-items-center mt-3">
+            <!-- Nút Import từ Excel bên trái -->
+            <!-- File input ẩn -->
+            <input
+            type="file"
+            ref="fileInput"
+            @change="handleFileChange"
+            accept=".xlsx,.xls"
+            style="display: none"
+            />
+
+            <!-- Nút hiển thị -->
+            <button type="button" class="btn btn-outline-primary" @click="triggerFileInput">
+            Import từ Excel
+            </button>
+
+
+            <!-- Nút Lưu và Đóng bên phải -->
+            <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-success">Lưu</button>
                 <button type="button" class="btn btn-secondary" @click="closeModal">Đóng</button>
             </div>
+            </div>
+
             </form>
         </div>
         </div>
@@ -65,6 +85,11 @@
 import { ref } from 'vue'
 import api from '../../axios.js'
 const showModal = ref(false)
+const fileInput = ref(null)
+
+const triggerFileInput = () => {
+  fileInput.value.click()
+}
 
 const sinhvien = ref({
   HoTen: '',
@@ -107,5 +132,20 @@ const submitForm = async () => {
     console.error(error)
   }
 }
+const handleFileChange = async (event) => {
+  const file = event.target.files[0]
+  if (!file) return
 
+  const formData = new FormData()
+  formData.append('file', file)
+
+  try {
+    await api.post('/api/import-sinhvien', formData)
+    alert('Import thành công!')
+    fetchSinhViens() // nếu có hàm này để reload danh sách
+  } catch (error) {
+    console.error(error)
+    alert('Import thất bại!')
+  }
+}
 </script>
