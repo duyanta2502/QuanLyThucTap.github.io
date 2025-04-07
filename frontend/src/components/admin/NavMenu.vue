@@ -1,13 +1,30 @@
+
+                    
 <template>
-        <div class = "NavMenu">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-                <div class="container-fluid">
-                    <router-link to ="/admin/dashboard" class="nav-link">
-                        <a class="navbar-brand" href="#">Quản lý Sinh viên</a>
-                    </router-link>
-                    <div class="d-flex ms-auto">
-                    <!-- User name display -->
-                    <router-link to ="/admin/edit-profile" class="nav-link">
+    <div class="NavMenu">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+        <div class="container-fluid">
+          <!-- Logo -->
+          <router-link to="/admin/dashboard" class="navbar-brand">
+            Quản lý Sinh viên
+          </router-link>
+  
+          <!-- Menu links -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row gap-3">
+            <li class="nav-item">
+              <router-link to="/admin/dashboard" class="nav-link">Sinh viên</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/admin/giangvien" class="nav-link">Giảng viên</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/admin/khoathuctap" class="nav-link">Khóa thực tập</router-link>
+            </li>
+          </ul>
+  
+          <!-- Right section: user name & logout -->
+          <div class="d-flex align-items-center">
+            <router-link to ="/admin/edit-profile" class="nav-link">
                         <span class="navbar-text mx-3">
                             Xin chào, {{ dataProfile.name }}
                         </span>
@@ -15,10 +32,12 @@
                     <button class="btn btn-danger" @click="logout">
                         Logout
                     </button>
-                </div>
-                </div>
-            </nav>
-        </div>   </template>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </template>
+  
 
 <script>
     import { 
@@ -59,3 +78,6 @@
     }
 </script>
 
+<style>
+    @import 'Dashboard.css';
+</style>
